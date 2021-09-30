@@ -75,12 +75,6 @@ tray = I3Tray()
 
 tray.AddModule("I3Reader","reader",FilenameList = infiles)
 # pass2 is uniform
-'''
-if int(year)>2011:
-    tray.AddSegment(selection, "cscdSBU", selection=args.SELECTION) # None, 'cascade', 'hybrid', 'muon'
-else:
-    tray.AddSegment(selection_mlb, "cscdSBU", Year=year)
-'''
 tray.AddSegment(selection, "cscdSBU", selection=args.SELECTION) # None, 'cascade', 'hybrid', 'muon'
 
 # we only consider data now so this part of code does not work.
@@ -103,13 +97,11 @@ if datatype=="nugen":
     tray.AddModule(InIceNu, 'thenusinice')
 
 # if data add reconstruction with partial exclusion
-if datatype=='data' and int(year)>2010:
-    tray.AddSegment(reco, 'reco_with_pe')
+#if datatype=='data' and int(year)>2010:
+#    tray.AddSegment(reco, 'reco_with_pe')
 
 # some L2 variable names differ from year to year. revert to 2011 names.
 # pass2 is uniform
-#if not (year=='2011' or year=='2010'):
-#    tray.AddModule(change_names, year=year)
 tray.AddModule(change_names, year=year)
 
 # create list of things to be booked

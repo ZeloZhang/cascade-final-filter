@@ -4,9 +4,7 @@ from icecube.icetray import traysegment
 
 @icetray.traysegment
 def monopod_reco(tray, name, ExcludeDeepCore=False, pulses='OfflinePulses'):
- 
     from icecube import wavedeform
-
     from icecube.millipede import MonopodFit, HighEnergyExclusions
     from icecube import photonics_service, millipede
 
@@ -19,9 +17,9 @@ def monopod_reco(tray, name, ExcludeDeepCore=False, pulses='OfflinePulses'):
         srtpulses = 'SRTOfflinePulses'
      
     exclusions = tray.AddSegment(HighEnergyExclusions, Pulses=srtpulses,ExcludeDeepCore=ExcludeDeepCore, BadDomsList='BadDomsList')
-    
-    table_base = '/data/sim/sim-new/spline-tables/ems_mie_z20_a10.%s.fits'
-    photonics_service = photonics_service.I3PhotoSplineService(table_base % 'abs', table_base % 'prob', 0.)
+    table_base = '/data/sim/sim-new/spline-tables/cascade_single_spice_3.2.1_flat_z20_a10.%s.fits'
+    tilt_table = "/cvmfs/icecube.opensciencegrid.org/py3-v4.1.1/metaprojects/combo/V01-01-01/ice-models/resources/models/spice_3.2.1/"
+    photonics_service = photonics_service.I3PhotoSplineService(table_base % 'abs', table_base % 'prob', 0., tiltTableDir=tilt_table)
 
     # if TimeRange is missing, recreate if from WaveformTimeRange
     tray.AddModule(wavedeform.AddMissingTimeWindow, name+'pulserange', Pulses=pulses, If=lambda frame: not frame.Has(pulses+'TimeRange'))
@@ -38,8 +36,4 @@ def monopod_reco(tray, name, ExcludeDeepCore=False, pulses='OfflinePulses'):
     tray.Add(add_L3_MonopodFit4_AmptFit,name+"_add_AmptFit")
     tray.AddSegment(MonopodFit, name, Seed='L3_MonopodFit4_AmptFit',
         PhotonsPerBin=5, Iterations=4,DOMEfficiency=0.99,BinSigma=2,MintimeWidth=15,BadDOMs=exclusions, **millipede_config)
-
-
-
-    
 

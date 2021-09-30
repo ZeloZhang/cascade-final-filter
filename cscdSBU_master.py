@@ -11,6 +11,7 @@ from cscdSBU_weights import weights
 from cscdSBU_selection import select_L3SC
 from cscdSBU_monopod import monopod_reco
 from cscdSBU_vars import addvars
+from Redo_L3_monopod import Redo_L3_Monopod
 
 # arguments below
 from argparse import ArgumentParser
@@ -90,6 +91,10 @@ tray.AddSegment(select_L3SC, "select")
 
 # Weights + MCTruth.
 tray.AddSegment(weights, "weight", datatype=datatype)
+
+# redo L3_Monopod with spice 3.2.1
+print("redoing L3_monopod")
+tray.AddSegment(Redo_L3_Monopod, "Redo_L3_Monopod", year = year, Pulses="OfflinePulses")
 
 # Monopod 4iter (with and without DeepCore)
 tray.AddSegment(monopod_reco, 'cscdSBU_MonopodFit4_noDC', ExcludeDeepCore='DeepCoreDOMs', pulses=monopod_pulses)

@@ -67,12 +67,9 @@ def addvars(tray, name, ic_config, pulses='OfflinePulses'):
     from cscdSBU_polygon import ContainmentCut
     tray.AddSegment(ContainmentCut, 'Containment_Monopod4_noDC', Vertex="cscdSBU_MonopodFit4_noDC", ic_config=ic_config)
     
-
     from mlb_DelayTime_noNoise import calc_dt_nearly_ice 
     # calculate delay time with new monopod
     tray.AddModule(calc_dt_nearly_ice,'delaytime_monopod',name='cscdSBU_MonopodFit4',
                    reconame='cscdSBU_MonopodFit4',pulsemapname='OfflinePulsesHLC_noSaturDOMs')
     tray.AddModule(calc_dt_nearly_ice,'delaytime_monopod_noDC',name='cscdSBU_MonopodFit4_noDC',
                    reconame='cscdSBU_MonopodFit4_noDC',pulsemapname='OfflinePulsesHLC_noSaturDOMs')
-
-    

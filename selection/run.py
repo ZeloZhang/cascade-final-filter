@@ -154,7 +154,7 @@ tray.AddSegment(hdfwriter.I3HDFWriter, 'hdf',
                 SubEventStreams=['in_ice', 'nullsplit', 'ice_top', 'InIceSplit'])
 '''
 tray.AddModule("I3Writer", "EventWriter",
-                   FileName=outfile+".i3.bz2",
+                   FileName=outfile,
                    Streams=[icetray.I3Frame.TrayInfo,
                             icetray.I3Frame.DAQ,
                             icetray.I3Frame.Physics,

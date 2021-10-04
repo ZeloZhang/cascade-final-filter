@@ -1,5 +1,3 @@
-import glob
-import sys
 from I3Tray import *
 from icecube import icetray, dataclasses
 from icecube.icetray import traysegment

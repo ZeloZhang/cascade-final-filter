@@ -42,7 +42,7 @@ def get_demo_polygon(size, gcdfile=None):
     import numpy
     
     if (gcdfile):
-        from icecube import icetray, dataio, dataclasses
+        from icecube import icetray, dataio
         from cutparams import RingFinder
         f = dataio.I3File(gcdfile)
         fr = f.pop_frame()

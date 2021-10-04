@@ -1,5 +1,4 @@
 from icecube import icetray,dataclasses
-from icecube.icetray import traysegment
 
 @icetray.traysegment
 def nugen_weights(tray, name):

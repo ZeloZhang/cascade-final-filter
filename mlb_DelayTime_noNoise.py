@@ -1,5 +1,5 @@
 from I3Tray import *
-from icecube import icetray, dataio, dataclasses
+from icecube import icetray
 import numpy as n
 
 def getreco(frame, name):

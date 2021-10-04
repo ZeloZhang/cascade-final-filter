@@ -1,5 +1,4 @@
-from icecube import icetray,dataclasses
-from icecube.icetray import traysegment
+from icecube import icetray
 
 @icetray.traysegment
 def select_L3SC(tray, name):

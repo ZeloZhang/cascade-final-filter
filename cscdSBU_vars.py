@@ -1,5 +1,4 @@
-from icecube import icetray,dataclasses,dataio
-from icecube.icetray import traysegment
+from icecube import icetray,dataclasses
 from I3Tray import *
 
 @icetray.traysegment

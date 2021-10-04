@@ -13,7 +13,6 @@ import numpy
 from icecube import NewNuFlux
 from icecube.weighting import fluxes, get_weighted_primary
 
-from icecube import MuonGun, simclasses
 
 @icetray.traysegment
 def weights(tray, name, nfile, infiles, datatype, year):

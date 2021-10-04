@@ -1,6 +1,5 @@
 from I3Tray import *
 from icecube import icetray
-from icecube.icetray import traysegment
 
 @icetray.traysegment
 def monopod_reco(tray, name, ExcludeDeepCore=False, pulses='OfflinePulses'):

@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 
 from I3Tray import *
-#import I3Tray
-from icecube import icetray, dataclasses, dataio, hdfwriter
-from icecube.icetray import traysegment
+from icecube import icetray, dataio
 import sys
 import glob
 

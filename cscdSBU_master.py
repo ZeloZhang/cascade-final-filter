@@ -90,16 +90,22 @@ tray.AddSegment(select_L3SC, "select")
 # Weights + MCTruth.
 tray.AddSegment(weights, "weight", datatype=datatype)
 
+# prepare photonics_service for monopod reco
+table_base = '/data/sim/sim-new/spline-tables/cascade_single_spice_3.2.1_flat_z20_a10.%s.fits'
+tilt_table = "/cvmfs/icecube.opensciencegrid.org/py3-v4.1.1/metaprojects/combo/V01-01-01/ice-models/resources/models/spice_3.2.1/"
+from icecube import photonics_service, millipede
+photonics_service = photonics_service.I3PhotoSplineService(table_base % 'abs', table_base % 'prob', 0., tiltTableDir=tilt_table)
+
 # redo L3_Monopod with spice 3.2.1
 print("redoing L3_monopod")
-tray.AddSegment(Redo_L3_Monopod, "Redo_L3_Monopod", year = year, Pulses="OfflinePulses")
+tray.AddSegment(Redo_L3_Monopod, "Redo_L3_Monopod", year = year, Pulses="OfflinePulses", my_photonics_service=photonics_service)
 
 # Monopod 4iter (with and without DeepCore)
-tray.AddSegment(monopod_reco, 'cscdSBU_MonopodFit4_noDC', ExcludeDeepCore='DeepCoreDOMs', pulses=monopod_pulses)
+tray.AddSegment(monopod_reco, 'cscdSBU_MonopodFit4_noDC', ExcludeDeepCore='DeepCoreDOMs', pulses=monopod_pulses, my_photonics_service=photonics_service)
 
 # some cscd L3 datasets have correct monopod (with DeepCore) already
 if redo_monopod:
-    tray.AddSegment(monopod_reco, 'cscdSBU_MonopodFit4', ExcludeDeepCore=False, pulses=monopod_pulses)
+    tray.AddSegment(monopod_reco, 'cscdSBU_MonopodFit4', ExcludeDeepCore=False, pulses=monopod_pulses, my_photonics_service=photonics_service)
 else:
     # correct monopod exists. rename.
     def rename_monopod(frame):

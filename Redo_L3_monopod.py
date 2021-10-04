@@ -1,7 +1,7 @@
 from icecube import icetray
 
 @icetray.traysegment
-def Redo_L3_Monopod(tray, name,year,Pulses='OfflinePulses'):
+def Redo_L3_Monopod(tray, name,year,Pulses='OfflinePulses', my_photonics_service=None):
     from icecube.millipede import MonopodFit, HighEnergyExclusions
     from icecube import photonics_service, millipede
 
@@ -9,12 +9,13 @@ def Redo_L3_Monopod(tray, name,year,Pulses='OfflinePulses'):
 
     exclusions = tray.AddSegment(HighEnergyExclusions, Pulses='SRTOfflinePulses',ExcludeDeepCore=False,BadDomsList='BadDomsList')
     AmpSeed= 'CascadeLlhVertexFit_L2'
-    table_base = '/data/sim/sim-new/spline-tables/cascade_single_spice_3.2.1_flat_z20_a10.%s.fits'
-    tilt_table = '/cvmfs/icecube.opensciencegrid.org/py3-v4.1.1/metaprojects/combo/V01-01-01/ice-models/resources/models/spice_3.2.1/'
-    photonics_service = photonics_service.I3PhotoSplineService(table_base % 'abs', table_base % 'prob', 0., 
+    if not my_photonics_service:
+        table_base = '/data/sim/sim-new/spline-tables/cascade_single_spice_3.2.1_flat_z20_a10.%s.fits'
+        tilt_table = '/cvmfs/icecube.opensciencegrid.org/py3-v4.1.1/metaprojects/combo/V01-01-01/ice-models/resources/models/spice_3.2.1/'
+        my_photonics_service = photonics_service.I3PhotoSplineService(table_base % 'abs', table_base % 'prob', 0., 
             tiltTableDir=tilt_table)
 
-    millipede_config = dict(Pulses=Pulses, CascadePhotonicsService=photonics_service,
+    millipede_config = dict(Pulses=Pulses, CascadePhotonicsService=my_photonics_service,
         PartialExclusion=False,
         Parametrization='HalfSphere')
     tray.AddSegment(MonopodFit, 'RedoMonopodAmpFit', Seed=AmpSeed,

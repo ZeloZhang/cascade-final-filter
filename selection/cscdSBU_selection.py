@@ -1,7 +1,6 @@
 from I3Tray import *
 from icecube import icetray, dataclasses
 from icecube.icetray import traysegment
-from icecube import cscd_llh
 
 from cscdSBU_LE_GBDT import LE_GBDT
 from cscdSBU_LE_tags import LE_tags

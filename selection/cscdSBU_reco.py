@@ -1,8 +1,6 @@
 from I3Tray import *
 from icecube import icetray, dataclasses
 from icecube.icetray import traysegment
-from icecube import dataio,dataclasses
-from decimal import Decimal
 import copy
 
 @icetray.traysegment

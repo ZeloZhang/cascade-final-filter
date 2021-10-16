@@ -1,5 +1,4 @@
 from icecube import icetray,dataclasses
-from icecube import cscd_llh, gulliver
 import xgboost
 import pickle
 import numpy

@@ -4,6 +4,7 @@ from I3Tray import *
 from icecube import icetray,dataio,dataclasses
 from icecube.icetray import traysegment
 from icecube import hdfwriter
+from icecube import fill_ratio, cscd_llh,gulliver, millipede, finiteReco, linefit, lilliput, dipolefit, clast, CascadeVariables
 
 from cscdSBU_book import tobook, change_names, OLDMuonGun2011LE
 from cscdSBU_weights import weights

@@ -3,6 +3,7 @@ import xgboost
 import pickle
 import numpy
 import re
+import glob
 
 class LE_GBDT(icetray.I3Module):
     '''
@@ -16,8 +17,15 @@ class LE_GBDT(icetray.I3Module):
         #self.AddParameter("Year", "Specify what year's processing is used ('2011', '2012', etc). Need to anticipate variable names.", None)
          
         # access xgboost GBDT model
-        self.bdt = pickle.load( open( "/data/user/hmniederhausen/mariola/test/models/bdt_full.xgb", "rb" ) )
-
+        if glob.glob("/data/user/hmniederhausen/mariola/test/models/bdt_full.xgb"):
+            self.bdt = pickle.load( open( "/data/user/hmniederhausen/mariola/test/models/bdt_full.xgb", "rb" ) )
+        elif glob.glob("./bdt_full.xgb"):
+            self.bdt = pickle.load(open("./bdt_full.xgb"))
+        elif glob.glob("/cvmfs/icecube.opensciencegrid.org/users/zzhang1/trained_bdt/bdt_full.xgb"):
+            self.bdt = pickle.load(open("/cvmfs/icecube.opensciencegrid.org/users/zzhang1/trained_bdt/bdt_full.xgb"))
+        else:
+            print("missing trained bdt")
+        
         # explicitlely use 2011 variable names for reference 
         self.variables = ['CascadeLlhVertexFitParams_rlogL', 'cscdSBU_MonopodFit4_noDC_Delay_ice_value', 'cscdSBU_MonopodFit4_noDC_z', 'cscdSBU_Qtot_HLC_log_value', 'cscdSBU_VertexRecoDist_CscdLLh', 'cscdSBU_I3XYScale_noDC_value', 'cscdSBU_L4StartingTrackHLC_cscdSBU_MonopodFit4_noDCVetoCharge_value', 'cscdSBU_L4VetoTrack_cscdSBU_MonopodFit4_noDCVetoCharge_value', 'cscdSBU_VetoDepthFirstHit_value', 'CscdL3_SPEFit16_zenith', 'LineFit_zenith', 'CscdL3_SPEFit16FitParams_rlogl', 'cscdSBU_MonopodFit4_noDC_zenith']
 

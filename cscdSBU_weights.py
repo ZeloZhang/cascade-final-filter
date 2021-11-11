@@ -13,7 +13,7 @@ def weights(tray, name, datatype='data'):
         tray.AddSegment(nugen_weights,'atm_flux')
 
         from nugen import nugen_truth
-        #tray.AddSegment(nugen_truth,'visible_truth')
+        tray.AddSegment(nugen_truth,'visible_truth')
 
     if datatype == 'cors':
         print ("this is corsika. weights need to be calculated later.")

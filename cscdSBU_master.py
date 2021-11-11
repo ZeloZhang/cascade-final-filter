@@ -74,7 +74,12 @@ else:
 tray = I3Tray()
 
 # For data
-filenames = [gcd]+sorted(glob.glob(i3+"*.i3*"))
+if glob.glob(i3):
+    filenames = [gcd]+sorted(glob.glob(i3))
+elif glob.glob(i3+"*.i3*"):
+    filenames = [gcd]+sorted(glob.glob(i3+"*.i3*"))
+else:
+    print("no i3 file found")
 #print("********this is file name",filenames)
 
 # exit script if filenames only has 1 file (GCD or data instead of at least both)
@@ -91,10 +96,22 @@ tray.AddSegment(select_L3SC, "select")
 tray.AddSegment(weights, "weight", datatype=datatype)
 
 # prepare photonics_service for monopod reco
-table_base = '/data/sim/sim-new/spline-tables/cascade_single_spice_3.2.1_flat_z20_a10.%s.fits'
+# Try photon table from /data/sim/ first
+# If it does not exist on grid try tables from /cvmfs/
+if glob.glob('/data/sim/sim-new/spline-tables/cascade_single_spice_3.2.1_flat_z20_a10.%s.fits'):
+    tabledir = '/data/sim/sim-new/spline-tables/'
+    amplitudetable=tabledir+"cascade_single_spice_3.2.1_flat_z20_a5.abs.fits"
+    timingtable=tabledir+"cascade_single_spice_3.2.1_flat_z20_a10.prob.fits"
+else:
+    tabledir = "/cvmfs/icecube.opensciencegrid.org/data/photon-tables/splines/"
+    amplitudetable=tabledir+"cascade_single_spice_3.2.1_flat_z20_a5.abs.fits"
+    timingtable=tabledir+"cascade_single_spice_3.2.1_flat_z20_a10.prob.fits"
 tilt_table = "/cvmfs/icecube.opensciencegrid.org/py3-v4.1.1/metaprojects/combo/V01-01-01/ice-models/resources/models/spice_3.2.1/"
+splinetabledir = '/cvmfs/icecube.opensciencegrid.org/data/photon-tables/splines'
+
 from icecube import photonics_service, millipede
-photonics_service = photonics_service.I3PhotoSplineService(table_base % 'abs', table_base % 'prob', 0., tiltTableDir=tilt_table)
+photonics_service = photonics_service.I3PhotoSplineService(amplitudetable=amplitudetable, timingtable=timingtable, timingSigma=0., tiltTableDir=tilt_table, effectivedistancetable = splinetabledir + '/cascade_effectivedistance_spice_3.2.1_z20.eff.fits')
+print("using spice321 tilt effective distance icemodel")
 
 # redo L3_Monopod with spice 3.2.1
 print("redoing L3_monopod")

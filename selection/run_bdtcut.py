@@ -4,7 +4,7 @@ from I3Tray import *
 from icecube import icetray,dataio,dataclasses
 from icecube.icetray import traysegment
 from cscdSBU_selection import selection, selection_mlb
-
+from icecube import fill_ratio, cscd_llh, gulliver, millipede, finiteReco, linefit, lilliput, dipolefit, clast, CascadeVariables
 import glob
 from argparse import ArgumentParser
 import os

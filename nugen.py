@@ -34,12 +34,9 @@ def nugen_weights(tray, name):
         ##  add penetrating depth dependence to the self veto probability calculation
         from icecube import MuonGun, simclasses
         surface = MuonGun.Cylinder(1000, 500)
-        #print(f"surface={surface}")
         d = surface.intersection(p.pos, p.dir)
         getDepth=p.pos + d.first*p.dir
-        #print(f"p.pos={p.pos} d.first={d.first} p.dir={p.dir}")
         impactDepth = MuonGun.depth((p.pos + d.first*p.dir).z)*1.e3
-        #print(f"enu={p.energy} cosz={p.dir.zenith} depth={impactDepth}")
         conv_passing_fraction = conventional_veto(particleType, enu=p.energy, ct=math.cos(p.dir.zenith), depth=impactDepth)
         prompt_passing_fraction = prompt_veto(particleType, enu=p.energy, ct=math.cos(p.dir.zenith), depth=impactDepth)
         frame["cscdSBU_AtmWeight_Conv"]=dataclasses.I3Double(conv)
@@ -96,13 +93,14 @@ def nugen_truth(tray, name):
             else:
                 vertices.append(10**8)
 
+        '''
         if len(neutrinos)==len(vertices):
             print("neutrinos and vertices have same lens")
         else:
             print("neutrinos and vertices have different lens")
-
+        '''
         if not neutrinos:
-            print("polyplopia event")
+            #print("polyplopia event")
             frame['cscdSBU_MCTruth'] = dataclasses.I3Particle()
             frame['cscdSBU_MCMuon']=dataclasses.I3Particle()
             return True
@@ -116,10 +114,10 @@ def nugen_truth(tray, name):
                 if not frame.Has('cscdSBU_MCMuon'):
                      frame['cscdSBU_MCMuon']=dataclasses.I3Particle()
 
-        print("==================")
-        print(tree)
-        print("-------------------")
-        print(cascade)
+        #print("==================")
+        #print(tree)
+        #print("-------------------")
+        #print(cascade)
         cascade.pos = tree.get_daughters(cascade)[0].pos
 
         losses = 0

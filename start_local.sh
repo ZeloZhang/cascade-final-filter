@@ -1,5 +1,6 @@
 #!/bin/sh
 
+set -f
 GCD="$1"
 INFILE="$2"
 OUTFILE="$3"
@@ -16,5 +17,5 @@ SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 
 eval `/cvmfs/icecube.opensciencegrid.org/py3-v4.0.1/setup.sh`
-time /data/user/zzhang1/combo/stable_addatmo/build/env-shell.sh python /home/zzhang1/private_cascade_filter/cascade-final-filter/cscdSBU_master.py -i "${INFILE}" -o "${OUTFILE}" -g "$GCD" -d "$DATATYPE" -y "$YEAR" --redomonopod
+time /cvmfs/icecube.opensciencegrid.org/users/zzhang1/combo_stable_addatmo/env-shell.sh python /home/zzhang1/private_cascade_filter/cascade-final-filter/cscdSBU_master.py -i "${INFILE}" -o "${OUTFILE}" -g "$GCD" -d "$DATATYPE" -y "$YEAR" --redomonopod
 

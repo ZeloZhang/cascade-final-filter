@@ -73,7 +73,6 @@ tray.AddModule("I3Reader","reader",FilenameList = infiles)
 # pass2 is uniform
 #tray.AddSegment(selection, "cscdSBU", selection=args.SELECTION) # None, 'cascade', 'hybrid', 'muon'
 
-# we only consider data now so this part of code does not work.
 tray.AddSegment(weights, 'background_weights', nfile=nfiles, infiles=infiles, datatype=datatype, year=year)
 
 # xsec analysis needs inice neutrino

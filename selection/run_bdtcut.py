@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+#!/bin/sh /cvmfs/icecube.opensciencegrid.org/py2-v2/icetray-start
+#METAPROJECT: /cvmfs/icecube.opensciencegrid.org/py2-v2/RHEL_7_x86_64/metaprojects/icerec/V05-01-02/
 
 from I3Tray import *
 from icecube import icetray,dataio,dataclasses

@@ -17,5 +17,7 @@ def weights(tray, name, datatype='data'):
 
     if datatype == 'cors':
         print ("this is corsika. weights need to be calculated later.")
+    if datatype == 'muongun':
+        print ("this is muongun. weights need to be calculated later.")
     if datatype == 'data':
         print ("this is data. no weights needed.")

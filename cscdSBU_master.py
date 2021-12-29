@@ -17,7 +17,7 @@ parser = ArgumentParser()
 
 parser.add_argument("-i", "--infile",type=str,
                       default="",
-                      dest="INFILE",
+                      dest="INFILE",nargs="+",
                       help="read input physcis to INFILE (.i3.bz2 format)")
 
 parser.add_argument("-o", "--outfile",type=str,
@@ -72,15 +72,16 @@ else:
     print("... assuming monopod 4iter exists at CscdL3.")
 
 tray = I3Tray()
-
 # For data
-if glob.glob(i3):
+if i3:
+    filenames = [gcd]+[filename for filename in i3]
+elif glob.glob(i3):
     filenames = [gcd]+sorted(glob.glob(i3))
 elif glob.glob(i3+"*.i3*"):
     filenames = [gcd]+sorted(glob.glob(i3+"*.i3*"))
 else:
     print("no i3 file found")
-#print("********this is file name",filenames)
+print("********this is file name",filenames)
 
 # exit script if filenames only has 1 file (GCD or data instead of at least both)
 if len(filenames)<2:

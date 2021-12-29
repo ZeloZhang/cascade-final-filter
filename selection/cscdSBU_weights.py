@@ -142,16 +142,8 @@ def weights(tray, name, nfile, infiles, datatype, year):
         
     
     if datatype == 'muongun':
-        tray.AddModule('Delete', 'Delete', Keys=['MMCTrackList',"RNGState"])
-        #prandomService = phys_services.I3SPRNGRandomService(
-        #        seed = 10000,
-        #        nstreams = 200000000,
-        #        streamnum = 1+100000000)
-        prandomService = phys_services.I3GSLRandomService(10000)
-        from icecube.simprod.segments.PropagateMuons import PropagateMuons
-
-        tray.AddSegment(PropagateMuons, RandomService=prandomService)                
-
+        # do not calculate muongun weight here, calculate the weight when we create hd5 files later.
+        return True
         def put_muon(frame):
             if not 'Muon' in frame:
                 tree = frame['I3MCTree']

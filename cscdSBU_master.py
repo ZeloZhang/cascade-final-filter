@@ -127,7 +127,7 @@ if redo_monopod:
 else:
     # correct monopod exists. rename.
     def rename_monopod(frame):
-        reconame = 'L3_MonopodFit4'
+        reconame = 'L3_MonopodFit4_AmptFit'
         if frame.Has(reconame):
             frame['cscdSBU_MonopodFit4'] = frame[reconame]
         return True

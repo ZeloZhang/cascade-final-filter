@@ -85,7 +85,8 @@ if datatype=="nugen":
         for p in tree:
             if p.is_neutrino == True and p.location_type == dataclasses.I3Particle.LocationType.InIce and not n.isnan(p.length):
                 neutrinos.append(p)
-        frame['cscdSBU_MCInIcePrimary']=neutrinos[0]
+        if len(neutrinos)>0:
+            frame['cscdSBU_MCInIcePrimary']=neutrinos[0]
 
         return True
 

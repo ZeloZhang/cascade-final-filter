@@ -56,8 +56,8 @@ def addvars(tray, name, ic_config, pulses='OfflinePulses'):
     sys.path.append(os.path.expandvars('$I3_BUILD/CascadeL3_IC79/resources/level4'))
     import common 
     tray.AddSegment(common.TrackVetoes, "pulses_all", vertex='cscdSBU_MonopodFit4')
-    #tray.AddSegment(common.TrackVetoes_noDC, "pulses_noDC", vertex='cscdSBU_MonopodFit4')
-    tray.AddSegment(common.TrackVetoes_noDC, "pulses_noDC", vertex='cscdSBU_MonopodFit4',safety_margin=60)
+    tray.AddSegment(common.TrackVetoes_noDC, "pulses_noDC", vertex='cscdSBU_MonopodFit4')
+    #tray.AddSegment(common.TrackVetoes_noDC, "pulses_noDC", vertex='cscdSBU_MonopodFit4',safety_margin=60)
     tray.AddSegment(common.TrackVetoes, "pulses_all_monopod_noDC", vertex='cscdSBU_MonopodFit4_noDC')
 
     # add Mariola variables

@@ -7,7 +7,6 @@ from icecube import hdfwriter
 from icecube import fill_ratio, cscd_llh,gulliver, millipede, finiteReco, linefit, lilliput, dipolefit, clast, CascadeVariables
 
 from cscdSBU_book import tobook, change_names, OLDMuonGun2011LE
-from cscdSBU_weights import weights
 from cscdSBU_reco import reco
 
 import glob
@@ -72,8 +71,6 @@ tray = I3Tray()
 tray.AddModule("I3Reader","reader",FilenameList = infiles)
 # pass2 is uniform
 #tray.AddSegment(selection, "cscdSBU", selection=args.SELECTION) # None, 'cascade', 'hybrid', 'muon'
-
-tray.AddSegment(weights, 'background_weights', nfile=nfiles, infiles=infiles, datatype=datatype, year=year)
 
 # xsec analysis needs inice neutrino
 if datatype=="nugen":

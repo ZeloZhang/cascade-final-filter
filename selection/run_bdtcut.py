@@ -5,6 +5,7 @@ from I3Tray import *
 from icecube import icetray,dataio,dataclasses
 from icecube.icetray import traysegment
 from cscdSBU_selection import selection, selection_mlb
+from cscdSBU_weights import weights
 from icecube import fill_ratio, cscd_llh, gulliver, millipede, finiteReco, linefit, lilliput, dipolefit, clast, CascadeVariables
 import glob
 from argparse import ArgumentParser
@@ -67,6 +68,7 @@ tray = I3Tray()
 
 tray.AddModule("I3Reader","reader",FilenameList = infiles)
 tray.AddSegment(selection, "cscdSBU", selection=args.SELECTION) # None, 'cascade', 'hybrid', 'muon'
+tray.AddSegment(weights, 'background_weights', nfile=nfiles, infiles=infiles, datatype=datatype, year=year)
 
 tray.AddModule("I3Writer", "EventWriter",
                    FileName=outfile,

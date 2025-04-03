@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+#!/bin/sh /cvmfs/icecube.opensciencegrid.org/py3-v4.3.0/icetray-start
+#METAPROJECT: /cvmfs/icecube.opensciencegrid.org/py3-v4.3.0/${OS_ARCH}/metaprojects/icetray/v1.12.0/
 
 from I3Tray import *
 from icecube import icetray,dataio,dataclasses
@@ -7,7 +8,7 @@ from icecube import hdfwriter
 from icecube import fill_ratio, cscd_llh,gulliver, millipede, finiteReco, linefit, lilliput, dipolefit, clast, CascadeVariables
 
 from cscdSBU_book import tobook, change_names, OLDMuonGun2011LE
-from cscdSBU_reco import reco
+from cscdSBU_reco import reco, reco_ftp
 
 import glob
 from argparse import ArgumentParser
@@ -88,6 +89,8 @@ if datatype=="nugen":
         return True
 
     tray.AddModule(InIceNu, 'thenusinice')
+
+tray.Add(reco_ftp, 'cscdSBU_MonopodFit_ftp_v1')
 
 # if data add reconstruction with partial exclusion
 #if datatype=='data' and int(year)>2010:

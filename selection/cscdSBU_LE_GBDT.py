@@ -1,4 +1,8 @@
 from icecube import icetray,dataclasses
+
+# model is trained on xgboost-0.47, but xgboost-0.47 only works for python2,
+# i.e., not compatible with python3. The closest version to xgboost-0.47 that works for python3 is xgboost-0.82
+# you can install it by `pip install xgboost==0.82` or `pip install --user xgboost==0.82` then set PYTHONPATH if needed.
 import xgboost
 import pickle
 import numpy
@@ -102,10 +106,11 @@ class LE_GBDT(icetray.I3Module):
 
         # store BDT input variables separately in frame
         frame['cscdSBU_LE_bdt_input']=dataclasses.I3MapStringDouble(map)
+        values = [float('nan') if v==0 else v for v in values] # xgboost0.47 and xgboost0.82 treat missing value differently, this trick deals with the issue that the model is trained in xgboost0.47 but predict in xgboost0.82
  
         inputdata = numpy.column_stack(values)
 
-        xgmat_data = xgboost.DMatrix(inputdata, feature_names = self.names)
+        xgmat_data = xgboost.DMatrix(inputdata, missing=float('nan'), feature_names = self.names) # xgboost0.47 and xgboost0.82 treat missing value differently, this trick deals with the issue that the model is trained in xgboost0.47 but predict in xgboost0.82
         scores = self.bdt.predict(xgmat_data)        
 
         frame['cscdSBU_LE_bdt_track']=dataclasses.I3Double(float(scores[:,0][0]))

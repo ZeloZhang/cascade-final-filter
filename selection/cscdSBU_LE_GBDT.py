@@ -24,9 +24,9 @@ class LE_GBDT(icetray.I3Module):
         if glob.glob("/data/user/hmniederhausen/mariola/test/models/bdt_full.xgb"):
             self.bdt = pickle.load( open( "/data/user/hmniederhausen/mariola/test/models/bdt_full.xgb", "rb" ) )
         elif glob.glob("./bdt_full.xgb"):
-            self.bdt = pickle.load(open("./bdt_full.xgb"))
+            self.bdt = pickle.load(open("./bdt_full.xgb","rb"))
         elif glob.glob("/cvmfs/icecube.opensciencegrid.org/users/zzhang1/trained_bdt/bdt_full.xgb"):
-            self.bdt = pickle.load(open("/cvmfs/icecube.opensciencegrid.org/users/zzhang1/trained_bdt/bdt_full.xgb"))
+            self.bdt = pickle.load(open("/cvmfs/icecube.opensciencegrid.org/users/zzhang1/trained_bdt/bdt_full.xgb","rb"))
         else:
             print("missing trained bdt")
         '''
